@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<style>
+    .box {
+        height: 300px;
+        background: rgb(54, 81, 233);
+        overflow: hidden;
+    }
+
+    .lyric {
+        line-height: 30px;
+        margin-top: 100px;
+        list-style: none;
+    }
+</style>
+
+<body>
+    <audio src="https://music.163.com/song/media/outer/url?id=1804346576.mp3" controls></audio>
+    <div class="box">
+        <ul class="lyric">
+
+        </ul>
+    </div>
+    <script>
+        var lyric =
+            "[00:00.000] 作词 : Lambert\n[00:01.000] 作曲 : Lambert\n[00:04.95]制作人Producer：郑翰文/沈炳@Flowsixteen\n[00:05.84]录音工程师Record：宋兴超\n[00:07.49]混音工程师Mixing：欧姆@FLOWSIXTEEN\n[00:09.13]母带工程师Master：全相彦@OKmastering Studio\n[00:10.70]宣传propaganda：崔琳悦/张小肉/吴悠米\n[00:11.27]统筹Overall planning：花境艺\n[00:12.84]封面设计Cover Design：何晓婷\n[00:13.40]封面插画Cover illustration：YVONNE-HSY\n[00:14.50]\n[00:15.11]\n[00:19.02]yuh yuh\n[00:23.63]play this song i didn’t plan it\n[00:25.97]只是听着这 节奏 情不自禁地 就拿起笔\n[00:29.12]想跟你们聊聊过往 但不愿谱写忧伤\n[00:32.83]i know you’re so tired of love songs 那就写点日常\n[00:36.30]现在暂时不用去想 那不得不爱\n[00:39.45]我也不会 没有理由的 突然离开\n[00:42.08]lose no time you’re feeling my vibe\n[00:44.42]别再那发呆 已经唱完了一个八拍\n[00:47.65]每天都在 掏空脑袋 搜索着素材\n[00:50.63]不想被时代甩开 很自在地rhyming my life\n[00:53.11]谁能想到一年前我还徘徊在未来⻔外\n[00:56.46]迷茫更多是无奈 感觉危机感 无处不在\n[00:59.52]thank god 一刹那 grab the opportunity\n[01:02.32]i can’t stop success的信号 my destiny\n[01:05.49]proud my family 赚的money enemy can’t believe\n[01:08.14]shout out to my fans 在我身边 提醒我努力\n[01:10.67]i wanna ride\n[01:11.67]wanna go high\n[01:13.12]i wanna set this fire tonight 我值得等待\n[01:16.09]未来现在 流言和蜚语就不用理睬\n[01:22.02]please stay with me please stay with me\n[01:27.92]简单的sing a song 希望你听得懂\n[01:31.65]stay~\n[01:34.08]觉得我混迹在party\n[01:35.46]其实我缓解压力 就在家里 躺在沙发椅\n[01:37.94]GTA开开bugatti 驾驶体验最高的性价比\n[01:41.03]808的鼓点 在我的作品里发力\n[01:43.53]就像是 black widow匹配上斯嘉丽 yuh\n[01:46.26]押韵是一⻔学问 无论你是用中文英文\n[01:49.07]本质上没有difference 在每个韵脚灌入灵魂\n[01:52.14]肆无忌惮的搅拌着flow跟着伴奏走\n[01:54.86]magical savage show 听众拍着手 喊着wonderful\n[01:57.94]“don’t stop now” 他们这样说道 我的音乐是打发时间的绝佳良药\n[02:02.92]turn the music loud 感到满足看到你们smile 换个style加点sauce 巧妙拿捏你们喜好\n[02:07.82]如果报名嘻哈101  务必要投我一票 well 绝不是玩笑\n[02:12.34]想让你们看得⻅ 席卷全球 like a hurricane\n[02:15.43]总有一天能真正的和你们面对着面\n[02:18.38]把你们所爱的song 汇个总 轮流唱个一遍\n[02:20.87]i wanna ride\n[02:22.05]wanna go high\n[02:23.29]i wanna set this fire tonight\n[02:26.08]我值得等待\n[02:27.60]未来现在\n[02:29.21]流言和蜚语就不用理睬\n[02:32.61]please stay with me  please stay with me yeah\n[02:39.16]简单的sing a song  希望你听得懂\n[02:41.74]stay~\n[02:58.02]\n[03:07.88]i wanna ride\n[03:08.73]wanna go high\n[03:10.20]i wanna set this fire tonight\n[03:13.12]我值得等待\n[03:14.55]未来现在\n[03:15.92]流言和蜚语就不用理睬\n[03:19.31]please stay with me  please stay with me yeah\n[03:25.30]简单的sing a song  希望你听得懂\n[03:28.83]stay~\n";
+
+
+        var lyri = document.querySelector(".lyric")
+
+        function paresLyric(lyric) {
+            var patt = /\[\d{2}:\d{2}\.\d{2,3}\]/gi;
+            var arr = lyric
+                    .split("\n")
+                    .filter((e) => e)
+                    .map((str) => {
+                        var time = str.match(patt)[0].replace(/(\[|\])/gi, "");
+                        var timeArr = time.split(":");
+                        time = Number(timeArr[0]) * 60 + Number(timeArr[1]);
+                        var text = str.replace(patt, "");
+                        return { time, text };
+                    });
+            return arr
+        }
+        var paresedLyric = paresLyric(lyric);
+        console.log(paresedLyric);
+
+        paresedLyric.forEach((element) => {
+            var node = document.createElement("li");
+            node.innerText = element.text;
+            // console.log(node);
+
+            lyri.appendChild(node);
+        });
+
+        var audio = document.querySelector("audio")
+        audio.ontimeupdate = function () {
+            var currentTime = this.currentTime;
+
+            var i = paresedLyric.findIndex((element) => {
+                return element.time > currentTime;
+            });
+            console.log(i);
+            lyri.style.marginTop = -30 * (i - 1) + 100 + "px";
+            // console.log(lyri.querySelectorAll("li"));
+            var lis = document.querySelectorAll(".lyric li")
+            // console.log(lis);
+            lyri.querySelectorAll("li")[i - 1].style.color = "red";
+
+        }
+    </script>
+</body>
+
+</html>
